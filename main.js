@@ -4,7 +4,8 @@ const searchInput = document.getElementById('searchInput')
 const movies = document.querySelector('.movies')
 const noResults = document.querySelector('.no-results')
 
-const upperCaseRobot = string => string?.replace('robot', 'ROBOT')
+const upperCaseRobot = string =>
+    string?.toLowerCase().replaceAll('robot', 'ROBOT')
 
 async function fetchShowData(name) {
     try {
@@ -32,7 +33,7 @@ async function fetchShowData(name) {
 }
 
 async function displayMatches() {
-    const showData = await fetchShowData(this.value, 1000)
+    const showData = await fetchShowData(this.value)
 
     if (this.value.length > 0 && showData.length === 0) {
         noResults.classList.remove('hidden')
@@ -42,10 +43,26 @@ async function displayMatches() {
 
     movies.innerHTML = showData
         ?.map(
-            show =>
-                `
-                <li>
-                    <span class="show">${show.name}</span>
+            ({ name, image, rating, summary, genres }) =>
+                ` <li>
+                    ${
+                        image
+                            ? `<img src=${image?.medium} alt=${name}/>`
+                            : `<div class="img-placeholder"></div>`
+                    }
+                    <h2 class="name">${name}</h2>
+                    ${
+                        rating.average
+                            ? `<p class="rating"><strong>Rating: </strong>${rating.average} stars</p>`
+                            : `<p>Unrated</p>`
+                    }
+                    ${
+                        genres &&
+                        `<p class="genres">${String(genres)
+                            .split(',')
+                            .join(', ')}</p>`
+                    }
+                    ${summary ? `<p>${summary}</p>` : `<p>No summary</p>`}
                 </li>
             `,
         )

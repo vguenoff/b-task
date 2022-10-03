@@ -6,3 +6,17 @@ body {
 .hidden {
     display: none;
 }
+
+ul {
+    list-style: none;
+}
+
+img,
+.img-placeholder {
+    width: 210px;
+    height: 295px;
+}
+
+.img-placeholder {
+    background-color: rebeccapurple;
+}
