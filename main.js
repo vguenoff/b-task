@@ -2,6 +2,7 @@ import './style.scss'
 
 const searchInput = document.getElementById('searchInput')
 const movies = document.querySelector('.movies')
+const noResults = document.querySelector('.no-results')
 
 const upperCaseRobot = sentence =>
     sentence
@@ -39,12 +40,18 @@ async function fetchShowData(name) {
 async function displayMatches() {
     const showData = await fetchShowData(this.value)
 
+    if (this.value.length > 0 && showData.length === 0) {
+        noResults.classList.remove('hidden')
+    } else {
+        noResults.classList.add('hidden')
+    }
+
     movies.innerHTML = showData
         ?.map(
             show =>
                 `
                 <li>
-                    <span class="population">${show.name}</span>
+                    <span class="show">${show.name}</span>
                 </li>
             `,
         )
