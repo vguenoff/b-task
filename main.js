@@ -50,19 +50,21 @@ async function displayMatches() {
                             ? `<img src=${image?.medium} alt=${name}/>`
                             : `<div class="img-placeholder"></div>`
                     }
-                    <h2 class="name">${name}</h2>
-                    ${
-                        rating.average
-                            ? `<p class="rating"><strong>Rating: </strong>${rating.average} stars</p>`
-                            : `<p>Unrated</p>`
-                    }
-                    ${
-                        genres &&
-                        `<p class="genres">${String(genres)
-                            .split(',')
-                            .join(', ')}</p>`
-                    }
-                    ${summary ? `<p>${summary}</p>` : `<p>No summary</p>`}
+                    <div class="info">                    
+                        <h2 class="name">${name}</h2>
+                        ${
+                            rating.average
+                                ? `<p class="rating"><strong>Rating: </strong>${rating.average} stars</p>`
+                                : `<p>Unrated</p>`
+                        }
+                        ${
+                            genres &&
+                            `<p class="genres">${String(genres)
+                                .split(',')
+                                .join(', ')}</p>`
+                        }
+                        ${summary ? `<p>${summary}</p>` : `<p>No summary</p>`}
+                    </div>
                 </li>
             `,
         )
