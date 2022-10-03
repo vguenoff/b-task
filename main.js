@@ -12,7 +12,11 @@ const upperCaseRobot = sentence =>
         )
         .join(' ')
 
-async function fetchShowData(name) {
+const debounce = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+async function fetchShowData(name, ms) {
+    await debounce(ms)
+
     try {
         const res = await fetch(`https://api.tvmaze.com/search/shows?q=${name}`)
         const data = await res.json()
@@ -38,7 +42,7 @@ async function fetchShowData(name) {
 }
 
 async function displayMatches() {
-    const showData = await fetchShowData(this.value)
+    const showData = await fetchShowData(this.value, 1000)
 
     if (this.value.length > 0 && showData.length === 0) {
         noResults.classList.remove('hidden')
