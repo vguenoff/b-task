@@ -4,19 +4,9 @@ const searchInput = document.getElementById('searchInput')
 const movies = document.querySelector('.movies')
 const noResults = document.querySelector('.no-results')
 
-const upperCaseRobot = sentence =>
-    sentence
-        ?.split(' ')
-        .map(word =>
-            word.toLowerCase().includes('robot') ? word.toUpperCase() : word,
-        )
-        .join(' ')
+const upperCaseRobot = string => string?.replace('robot', 'ROBOT')
 
-const debounce = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-async function fetchShowData(name, ms) {
-    await debounce(ms)
-
+async function fetchShowData(name) {
     try {
         const res = await fetch(`https://api.tvmaze.com/search/shows?q=${name}`)
         const data = await res.json()
